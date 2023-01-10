@@ -3,7 +3,7 @@ package java_challenge;
 public class SquareRoot {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		
 		int value = 111;
 		double temp;
 		double squrt=value/2;
