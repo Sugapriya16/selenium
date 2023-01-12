@@ -16,7 +16,7 @@ public class Single_one {
 			}
 		
 		   if (result) {
-				System.out.print("Elements appears once :" +nums[i]);
+				System.out.println("Elements appears once :" +nums[i]);
 				
 				}
 			
