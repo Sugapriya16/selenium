@@ -6,6 +6,7 @@ public class NotDistinct {
 		int[] nums = {1,2,4,3};
 		boolean result = true;
 	      for (int i = 0; i < nums.length; i++) {
+		      result = true;
 	    	  for (int j = 0; j < nums.length; j++) {
 	    		  if (nums[i]==nums[j]&&i!=j) {
 	    			  result = false;
