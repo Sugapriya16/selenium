@@ -9,8 +9,9 @@ public class NotDistinct {
 	    	  for (int j = 0; j < nums.length; j++) {
 	    		  if (nums[i]==nums[j]&&i!=j) {
 	    			  result = false;
+				  break;
 	    		  }
-			}break;
+			}
 		}
 		
       System.out.println(result);
