@@ -48,7 +48,7 @@ public class Amazon {
 		if (subtotal.equals(Price)) {
 			System.out.println("Amount is matched");
 		}else System.out.println("Amount is not matched");
-		 
+		driver.quit(); 
 	}
 
 }
