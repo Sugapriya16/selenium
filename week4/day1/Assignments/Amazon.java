@@ -44,11 +44,10 @@ public class Amazon {
 		FileUtils.copyFile(source, dest);
 		driver.findElement(By.xpath("//span[text()='Add to Cart']/preceding-sibling::input")).click();
 		String subtotal = driver.findElement(By.xpath("//span[@class='a-price-whole']")).getText();
-		System.out.println(Price + subtotal);
 		if (subtotal.equals(Price)) {
 			System.out.println("Amount is matched");
 		}else System.out.println("Amount is not matched");
-		driver.quit(); 
+		 driver.quit();
 	}
 
 }
