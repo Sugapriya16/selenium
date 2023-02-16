@@ -8,6 +8,7 @@ import java.util.Set;
 import org.apache.poi.util.SystemOutLogger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -15,7 +16,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Nykaa {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		  /* 1) Go to  https://www.nykaa.com/
 			2) Mouseover on Brands and Search L'Oreal Paris
 			3) Click L'Oreal Paris
@@ -51,11 +52,13 @@ public class Nykaa {
 		driver.findElement(By.xpath("//span[text()='Category']//parent::div")).click();
 		
 		try {
+			Thread.sleep(1000);
 		wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//span[text()='Hair']/parent::div")));
 		driver.findElement(By.xpath("//span[text()='Hair']/parent::div")).click();
 		driver.findElement(By.xpath("//span[text()='Hair Care']//parent::div")).click();
         driver.findElement(By.xpath("//span[text()='Shampoo']/ancestor::label")).click();
-        driver.findElement(By.xpath("//span[text()='Concern']//parent::div")).click();
+        WebElement Concern = driver.findElement(By.xpath("//span[text()='Concern']//parent::div"));
+        		driver.executeScript("arguments[0].click();", Concern);
         driver.findElement(By.xpath("//span[text()='Color Protection']/ancestor::label")).click();
 		}catch (StaleElementReferenceException e) {
 		    System.out.println("Unable to find the element");
@@ -64,21 +67,26 @@ public class Nykaa {
 		//filter box text
         String text = driver.findElement(By.xpath("//div[@class='css-rtde4j']")).getText();
         System.out.println("Filters of the product contains Shampoo :"+text.contains("Shampoo"));
-        driver.findElement(By.xpath("//div[@id='product-list-wrap']/div")).click();
+        //Thread.sleep(3000);
+        WebElement findElement = driver.findElement(By.xpath("//div[contains(text(),'Shampoo')]"));
+        driver.executeScript("arguments[0].click();", findElement);
+      //  driver.executeScript("arguments[0].click();", findElement);
         Set<String> windowHandles = driver.getWindowHandles();
         List<String> windows = new ArrayList(windowHandles);
         driver.switchTo().window(windows.get(1));
-        //driver.executeScript("arguments[0].click();", findElement2);
         driver.findElement(By.xpath("//span[text()='704ml']/parent::button")).click();
         System.out.println("MRP of the procuct: " +driver.findElement(By.xpath("//span[contains(text(),'MRP')]/parent::div")).getText());
         driver.findElement(By.xpath("//span[text()='Add to Bag']/parent::button")).click();
         driver.findElement(By.xpath("//span[@class='cart-count']/ancestor::button")).click();
-        driver.switchTo().frame(2);
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//span[text()='Grand Total']/parent::div/preceding-sibling::div/span")));
-       String grandtotal = driver.findElement(By.xpath("//span[text()='Grand Total']/parent::div/preceding-sibling::div/span")).getText();
-	    System.out.println(grandtotal);
-       driver.findElement(By.xpath("//span[text()='Proceed']")).click();
-	    driver.findElement(By.xpath("//button[text()='Continue as guest']")).click();
+              driver.switchTo().frame(0);
+        String grandtotal = driver.findElement(By.xpath("//span[text()='Grand Total']/parent::div/preceding-sibling::div/span")).getText();
+        System.out.println("Grand Total in Cart: " +grandtotal);        
+        WebElement button1= driver.findElement(By.xpath("//span[text()='Proceed']"));
+        driver.executeScript("arguments[0].click();", button1);
+      
+
+	   driver.findElement(By.xpath("//button[text()='Continue as guest']")).click();
+	   driver.quit();
 	    
 	}
 	

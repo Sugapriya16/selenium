@@ -54,12 +54,15 @@ public class SnapDeal {
 	    bulider.moveToElement(driver.findElement(By.xpath("//div[contains(@class,'col-xs-6 l')] "))).perform();
 	    WebElement findElement = driver.findElement(By.xpath("//div[contains(text(),'Quick')] "));
 	    driver.executeScript("arguments[0].click();", findElement);
-	    System.out.println(driver.findElement(By.xpath("//span[@class='percent-desc ']")).getText());
-	    System.out.println(driver.findElement(By.xpath(" //span[@class='payBlkBig']")).getText());
-	    File source1 = driver.getScreenshotAs(OutputType.FILE);
+	    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(60));
+	    System.out.println("Discount percentage :"+ driver.findElement(By.xpath("//span[@class='percent-desc ']")).getText());
+	    System.out.println("Cost Of Product :"+driver.findElement(By.xpath(" //span[@class='payBlkBig']")).getText());
+	   File source1 = driver.getScreenshotAs(OutputType.FILE);
 		 File target1 = new File("./snaps/shoes.png");
 		 FileUtils.copyFile(source1, target1);
-	    driver.close();
+		 WebElement close = driver.findElement(By.xpath("//div[@class='close close1 marR10']"));
+		 driver.executeScript("arguments[0].click()", close);
+	    driver.quit();
 	}
 
 }
